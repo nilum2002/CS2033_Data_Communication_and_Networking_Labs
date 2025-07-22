@@ -6,7 +6,7 @@
 
 // user-defined header files
 #include "node.h"
-FILE *fptr;
+
 // macros
 
 #define INSERT_BEFORE 1
@@ -23,8 +23,8 @@ int main()
     list *lst = (list *)malloc(sizeof(list));
     lst->head = NULL;
     run(lst);
-    // print_list(lst);
-    // free(lst);
+    print_list(lst);
+    free(lst);
     return 0;
 }
 
@@ -40,8 +40,8 @@ void run(list *lst)
 
     while (token){
         token = strtok(NULL, ",");
-        insert_node_after(lst, count++, token);
-        
+        insert_node_after(lst, count, token);
+        count++;
     }
 
     
@@ -49,4 +49,6 @@ void run(list *lst)
 // Print the list contents
 void print_list(list *lst)
 {
+    print_list(lst);
+
 }
