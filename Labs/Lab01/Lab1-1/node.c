@@ -17,14 +17,17 @@ void insert_node_before(list *lst, int index, char *word)
 	
 
 }
-
+// 
 void insert_node_after(list *lst, int index, char *word)
 {
 	// TODO
 	// crate a new node
-	node *new_node = (node*)malloc(sizeof(MAX_WORD_LENGTH));
+	printf("Inside the insertfunction");
+	node *new_node = (node*)malloc(sizeof(node));
+	new_node->word = (char *)malloc(strlen(word));
+	strcpy(new_node->word, word);
 	if (lst == NULL ){
-		new_node->word = word;
+		
 		new_node->prev = lst->head;
 		new_node->next = NULL;
 		lst->head = new_node;
@@ -35,9 +38,11 @@ void insert_node_after(list *lst, int index, char *word)
 			curr = curr->next;
 			i++;
 		}
-		new_node->word = word;
-		new_node->prev = curr;
+		
+		
 		new_node->next = curr->next;
+		curr->next = new_node;
+
 	}
 }
 

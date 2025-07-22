@@ -33,15 +33,18 @@ void run(list *lst)
 {
     // get the first line of input
     char  input[100];
-    
+    fgets(input, sizeof(input), stdin);
+
     char *token;
-    token = strtok(input, ",");
+    token = strtok(input, ","); 
     int count  = 0;
 
     while (token){
-        token = strtok(NULL, ",");
         insert_node_after(lst, count, token);
+        printf("%s", token);
         count++;
+        token = strtok(NULL, ",");
+        
     }
 
     
@@ -49,6 +52,8 @@ void run(list *lst)
 // Print the list contents
 void print_list(list *lst)
 {
+    printf("working");
+    
     print_list(lst);
 
 }
