@@ -32,44 +32,50 @@ int main()
 void run(list *lst)
 {
     // get the first line of input
-    char  input[100];
+    char input[100];
     fgets(input, sizeof(input), stdin);
 
     char *token;
-    token = strtok(input, ","); 
-    int count  = 1;
+    token = strtok(input, ",");
 
-    while (token){
-        insert_node_after(lst, count, token);
+    // Build initial list by always inserting at the end
+    while (token) {
+        // Remove newline if present
+        char *newline = strchr(token, '\n');
+        if (newline) *newline = '\0';
         
-        count++;
+        insert_node_after(lst, -1, token);  // Always insert at end
         token = strtok(NULL, ",");
-        
     }
     while(1){
         // get the instruction type
         int type;
         scanf("%d", &type);
-        // get the index
-        int index; 
-        scanf("%d", &index);
 
-        // get the word 
-        char word[MAX_WORD_LENGTH];
-        scanf("%s", word);
-
-        if (type == INSERT_AFTER){
-            insert_node_after(lst, index, word);
+        if (type == 0) {
+            break;
         }
-        break;
+        else if (type == 1 || type == 2) {
+            int position;
+            char word[50];
+            scanf("%d %s", &position, word);
 
+            if (type == 1) {
+                insert_node_before(lst, position, word);
+            }
+            else {
+                insert_node_after(lst, position, word);
+            }
+        }
+        else if (type == 3) {
+            int position;
+            scanf("%d", &position);
+            delete_node(lst, position);
+        }
+        else if(type == 4)
+            delete_list(lst);
+    }
 
-
-
-
-     }
-
-    
 }
 // Print the list contents
 void print_list(list *lst)
@@ -86,5 +92,5 @@ void print_list(list *lst)
 
         curr = curr->next;
     } while (curr != lst->head);
-    printf("\n");
+   
 }
