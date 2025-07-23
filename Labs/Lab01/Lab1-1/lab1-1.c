@@ -37,23 +37,52 @@ void run(list *lst)
 
     char *token;
     token = strtok(input, ","); 
-    int count  = 0;
+    int count  = 1;
 
     while (token){
         insert_node_after(lst, count, token);
-        printf("%s", token);
+        
         count++;
         token = strtok(NULL, ",");
         
     }
+    while(1){
+        // get the instruction type
+        int type;
+        scanf("%d", &type);
+        // get the index
+        int index; 
+        scanf("%d", &index);
+
+        // get the word 
+        char word[MAX_WORD_LENGTH];
+        scanf("%s", word);
+
+        if (type == INSERT_AFTER){
+            insert_node_after(lst, index, word);
+        }
+        break;
+
+
+
+
+
+     }
 
     
 }
 // Print the list contents
 void print_list(list *lst)
 {
-    printf("working");
+    printf("%s\n","working on print");
+    node *curr = lst->head;
     
-    print_list(lst);
 
+
+
+    do {
+        printf("%s", curr->word);
+
+        curr = curr->next;
+    } while (curr != lst->head);
 }

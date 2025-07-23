@@ -21,30 +21,48 @@ void insert_node_before(list *lst, int index, char *word)
 void insert_node_after(list *lst, int index, char *word)
 {
 	// TODO
-	// crate a new node
-	printf("Inside the insertfunction");
-	node *new_node = (node*)malloc(sizeof(node));
-	new_node->word = (char *)malloc(strlen(word));
+	
+	node *new_node = (node *)malloc(sizeof(node));
+	new_node->word = (char *)malloc(strlen(word)+1);
+	// save to the destination
 	strcpy(new_node->word, word);
-	if (lst == NULL ){
-		
-		new_node->prev = lst->head;
-		new_node->next = NULL;
+	if (lst->head == NULL){
 		lst->head = new_node;
-	}else{
-		node* curr = lst->head;
-		int i = 0;
-		while (i < index){
-			curr = curr->next;
-			i++;
-		}
-		
-		
-		new_node->next = curr->next;
-		curr->next = new_node;
+		new_node->next = lst->head;
 
 	}
+	node* curr_node = lst->head;
+
+	if (index <0){
+		// get the size of the index 
+		int size = 0;
+		node* temp =  curr_node;
+		while (temp->next != lst->head){
+			size++;
+			temp = temp->next;
+		}
+		index = size + index;
+
+	}
+		printf("%s\n","Indexes are above 0");
+		int curr_pos = 0;
+		
+		while (curr_pos < index && curr_node->next != lst->head){
+			curr_node = curr_node->next;
+			curr_pos += 1;
+		}
+		
+		new_node->next = curr_node->next;
+		new_node->prev = curr_node;
+		curr_node->next = new_node;
+	
+
 }
+	/*
+	
+	
+	*/
+
 
 char *list_to_sentence(list *lst)
 {
