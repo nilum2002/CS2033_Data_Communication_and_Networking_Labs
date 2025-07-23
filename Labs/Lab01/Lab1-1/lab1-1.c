@@ -74,15 +74,17 @@ void run(list *lst)
 // Print the list contents
 void print_list(list *lst)
 {
-    printf("%s\n","working on print");
+    
+    
     node *curr = lst->head;
     
 
 
 
     do {
-        printf("%s", curr->word);
+        printf("%s ", curr->word);
 
         curr = curr->next;
     } while (curr != lst->head);
+    printf("\n");
 }

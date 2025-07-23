@@ -21,48 +21,55 @@ void insert_node_before(list *lst, int index, char *word)
 void insert_node_after(list *lst, int index, char *word)
 {
 	// TODO
-	
 	node *new_node = (node *)malloc(sizeof(node));
+	if (new_node == NULL){
+		return; // Handle memory allocations failures 
+	}
 	new_node->word = (char *)malloc(strlen(word)+1);
-	// save to the destination
 	strcpy(new_node->word, word);
 	if (lst->head == NULL){
+		
 		lst->head = new_node;
-		new_node->next = lst->head;
+		// get the circular doubly linked list properties 
+		new_node->next = new_node;
+		new_node->prev = new_node;
+		return;
 
 	}
-	node* curr_node = lst->head;
-
-	if (index <0){
-		// get the size of the index 
-		int size = 0;
-		node* temp =  curr_node;
-		while (temp->next != lst->head){
-			size++;
-			temp = temp->next;
-		}
-		index = size + index;
-
+	// get the size
+	int size = 0;
+	node *temp = lst->head;
+	while (temp->next != lst->head){
+		temp = temp->next;
+		size++;
 	}
-		printf("%s\n","Indexes are above 0");
-		int curr_pos = 0;
-		
-		while (curr_pos < index && curr_node->next != lst->head){
-			curr_node = curr_node->next;
-			curr_pos += 1;
-		}
-		
-		new_node->next = curr_node->next;
-		new_node->prev = curr_node;
-		curr_node->next = new_node;
+	if (index<0){
+		index = size+index;
+	}
+	
 	
 
+	// find the right index 
+	node *curr_node = lst->head;
+
+	int count = 0;
+	while (count < index && curr_node->next != lst->head){
+		curr_node = curr_node->next;
+		count++;
+	}
+	// the actual node 
+	node *pre = curr_node;
+	// post node 
+	node *post = curr_node->next;
+
+	new_node->prev = pre;
+	pre->next = new_node;
+	new_node->next = post;
+	post->prev = new_node;
+	
+	
+	
 }
-	/*
-	
-	
-	*/
-
 
 char *list_to_sentence(list *lst)
 {
